@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import ApplicationForm from "./components/ApplicationForm";
+import React, {useState} from "react";
+import ApplicationForm from "./ApplicationForm";
 
 const JobList = (props) =>{
     const [selectedJob, setSelectedJob] = useState(null);
@@ -16,7 +16,7 @@ const JobList = (props) =>{
         <div className="container mt-5">
             <h2 className="mb-4">All Jobs</h2>
             <ul className="list-group">
-                {props.jobs.map(job=>(
+                {props.jobs.map(job => (
                     <li key = {job.id}>
                         <div>
                             <span onClick = {()=> {handleJobClick(job.id)}}>
@@ -35,7 +35,7 @@ const JobList = (props) =>{
                                 <strong>Employer:</strong>
                                 <p dangerouslySetInnerHTML={{ __html: job.job_employer.replace(/\n/g, '<br />')}}></p>
                                 <strong>Date Posted:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.job_date_posteds.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.job_date_posted.replace(/\n/g, '<br />')}}></p>
                             </div>
                         )}
                     </li>

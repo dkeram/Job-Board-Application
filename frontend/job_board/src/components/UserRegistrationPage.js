@@ -47,7 +47,7 @@ const UserRegistrationPage = (props) => {
                     <label className="form-label">Role:</label>
                     <textarea className='form-control' value={role} onChange={(e) => setRole(e.target.value)} required></textarea>
                 </div>
-                <button type='submit' className="addBook">Add Book</button>
+                <button type='submit' className="addUser">Create User</button>
             </form>
         </div>
     );

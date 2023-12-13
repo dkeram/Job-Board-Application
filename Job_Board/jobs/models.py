@@ -6,7 +6,8 @@ class User(models.Model):
     username = models.CharField(max_length=80)
     password = models.CharField(max_length=80)
     email = models.CharField(max_length=80)
-    role = [('employer', 'employer'), ('job_seeker', 'job seeker')]
+    ROLES = [('employer', 'employer'), ('job_seeker', 'job seeker')]
+    role = models.CharField(max_length=50, choices=ROLES, default='employer')
 
     def __str__(self):
         return self.username
