@@ -27,15 +27,15 @@ const JobList = (props) =>{
                         {selectedJob === job.id && (
                             <div>
                                 <strong>Description:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.job_description.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.description.replace(/\n/g, '<br />')}}></p>
                                 <strong>Salary:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.job_salary.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.salary.replace(/\n/g, '<br />')}}></p>
                                 <strong>Location:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.job_location.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.location.replace(/\n/g, '<br />')}}></p>
                                 <strong>Employer:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.job_employer.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.employer.replace(/\n/g, '<br />')}}></p>
                                 <strong>Date Posted:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.job_date_posted.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.date_posted.replace(/\n/g, '<br />')}}></p>
                             </div>
                         )}
                     </li>

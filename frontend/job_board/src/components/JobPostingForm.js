@@ -6,7 +6,6 @@ const UserRegistrationPage = (props) => {
     const [description, setDescription] = useState('');
     const [salary, setSalary] = useState('');
     const [location, setLocation] = useState('');
-    const [employer, setEmployer] = useState('');
     const [date_posted, setDatePosted] = useState('');
     
 
@@ -14,30 +13,28 @@ const UserRegistrationPage = (props) => {
         e.preventDefault();
 
         try{
-            await axios.post(`http://localhost:8000/jobs`, {
+            await axios.post(`http://localhost:8000/jobs/`, {
                 title : title,
                 description : description,
                 salary : salary,
                 location : location,
-                employer : employer,
-                date_posted : date_posted,
+                date_posted : date_posted
             });
 
             setTitle('');
             setDescription('');
             setSalary('');
             setLocation('');
-            setEmployer('');
             setDatePosted('');
 
         }catch(error){
-            console.error('Error Creating User: ',error);
+            console.error('Error Creating Job: ',error);
         }
     };
 
     return(
         <div className="container mt-5">
-            <h2 className="mb-4">Create new user</h2>
+            <h2 className="mb-4">Post a new Job</h2>
             <form onSubmit={handleSubmit} className="mb-5">
                 <div className='mb-3'>
                     <label className="form-label">Title:</label>
@@ -56,12 +53,8 @@ const UserRegistrationPage = (props) => {
                     <textarea className='form-control' value={location} onChange={(e) => setLocation(e.target.value)} required></textarea>
                 </div>
                 <div className='mb-3'>
-                    <label className="form-label">Employer:</label>
-                    <textarea className='form-control' value={employer} onChange={(e) => setEmployer(e.target.value)} required></textarea>
-                </div>
-                <div className='mb-3'>
                     <label className="form-label">Date Posted:</label>
-                    <textarea className='form-control' value={date_posted} onChange={(e) => setDatePosted(e.target.value)} required></textarea>
+                    <input type="date" className='form-control' value={date_posted} onChange={(e) => setDatePosted(e.target.value)} required></input>
                 </div>
                 <button type='submit' className="addJob">Add Job</button>
             </form>

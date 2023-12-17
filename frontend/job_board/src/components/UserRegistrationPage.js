@@ -7,17 +7,18 @@ const UserRegistrationPage = (props) => {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
 
+
     const handleSubmit = async(e) => {
         e.preventDefault();
 
         try{
-            await axios.post(`http://localhost:8000/jobs`, {
+            await axios.post('http://localhost:8000/user/', {
                 username : username,
                 password : password,
                 email : email,
                 role : role
             });
-
+            
             setUsername('');
             setPassword('');
             setEmail('');
@@ -37,15 +38,19 @@ const UserRegistrationPage = (props) => {
                 </div>
                 <div className='mb-3'>
                     <label className="form-label">Password:</label>
-                    <input type="text" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <div className='mb-3'>
                     <label className="form-label">E-mail:</label>
-                    <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
                 <div className='mb-3'>
                     <label className="form-label">Role:</label>
-                    <textarea className='form-control' value={role} onChange={(e) => setRole(e.target.value)} required></textarea>
+                    <select className='form-select' onChange={(e) => setRole(e.target.value)} required>
+                        <option>--------------------------</option>
+                        <option value="employer">Employer</option>
+                        <option value="job_seeker">Job Seeker</option>
+                    </select>
                 </div>
                 <button type='submit' className="addUser">Create User</button>
             </form>
