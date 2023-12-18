@@ -17,25 +17,25 @@ const JobList = (props) =>{
             <h2 className="mb-4">All Jobs</h2>
             <ul className="list-group">
                 {props.jobs.map(job => (
-                    <li key = {job.id}>
-                        <div>
+                    <li key = {job.id} className='list-group-item'>
+                        <div className="d-flex justify-content-between align-items-center">
                             <span onClick = {()=> {handleJobClick(job.id)}}>
                                 <b>{job.title}</b>
                             </span>
-                            <button className="btn" onClick = {()=> <ApplicationForm job={job.id} /> }>Apply</button>
                         </div>
                         {selectedJob === job.id && (
-                            <div>
+                            <div className="mt-3">
                                 <strong>Description:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.description.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.description.replace(/\n/g, '<br />') }}></p>
                                 <strong>Salary:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.salary.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.salary.toString().replace(/\n/g, '<br />') }}></p>
                                 <strong>Location:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.location.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.location.replace(/\n/g, '<br />') }}></p>
                                 <strong>Employer:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.employer.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.employer.toString().replace(/\n/g, '<br />')}}></p>
                                 <strong>Date Posted:</strong>
-                                <p dangerouslySetInnerHTML={{ __html: job.date_posted.replace(/\n/g, '<br />')}}></p>
+                                <p dangerouslySetInnerHTML={{ __html: job.date_posted.replace(/\n/g, '<br />') }}></p>
+                                <button className='btn btn-outline-primary'  onClick = {()=> <ApplicationForm job={job.id} /> }>Apply</button>
                             </div>
                         )}
                     </li>
@@ -43,7 +43,7 @@ const JobList = (props) =>{
             </ul>
         </div>
     );
-};
+};\-
 
 
 export default JobList;
