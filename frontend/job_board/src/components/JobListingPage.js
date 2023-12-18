@@ -43,7 +43,7 @@ const JobList = (props) =>{
             </ul>
         </div>
     );
-};\-
+};
 
 
 export default JobList;
