@@ -3,6 +3,7 @@ from .models import Users, Application, JobListing, Status, Message
 
 
 class UsersSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Users
         fields = ['id', 'username', 'password', 'email', 'role']
@@ -12,8 +13,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
 
 class JobListingSerializer(serializers.ModelSerializer):
-    employer = serializers.SlugRelatedField(read_only=True, slug_field='username')
-
+    employer = serializers.PrimaryKeyRelatedField(queryset=Users.objects.all())
     class Meta:
         model = JobListing
         fields = ['id', 'title', 'description', 'salary', 'employer', 'location', 'date_posted']
@@ -26,15 +26,12 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class StatusSerializer(serializers.ModelSerializer):
-    application = serializers.SlugRelatedField(read_only=True, slug_field='applicant')
-
     class Meta:
         model = Status
         fields = ['id', 'application', 'status']
 
 
 class MessageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Message
         fields = ['id', 'sender', 'receiver', 'content', 'timestamp']

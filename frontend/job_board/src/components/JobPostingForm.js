@@ -1,13 +1,28 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import axios from "axios";
 
-const UserRegistrationPage = (props) => {
+const JobPostingPage = (props) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [salary, setSalary] = useState('');
+    const [employer, setEmployer] = useState('');
     const [location, setLocation] = useState('');
-    const [date_posted, setDatePosted] = useState('');
+    const JWT_token = localStorage.getItem('access_token');
     
+    useEffect(() => {
+        if(localStorage.getItem('access_token')!==null){
+            (async () => {
+                try{
+                    const response = await axios.get(`http://localhost:8000/get-details/`, {headers: {Authorization :`Bearer ${JWT_token}`},});
+                    setEmployer(response.data.id);
+                    console.log(employer)
+                }catch (e) {
+                    console.log('not auth');
+                }
+            })
+        ()};
+    },[JWT_token, employer]);
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -17,15 +32,15 @@ const UserRegistrationPage = (props) => {
                 title : title,
                 description : description,
                 salary : salary,
+                employer: employer,
                 location : location,
-                date_posted : date_posted
-            });
+            },{headers: {Authorization :`Bearer ${JWT_token}`},});
 
             setTitle('');
             setDescription('');
             setSalary('');
+            setEmployer('');
             setLocation('');
-            setDatePosted('');
 
         }catch(error){
             console.error('Error Creating Job: ',error);
@@ -42,19 +57,15 @@ const UserRegistrationPage = (props) => {
                 </div>
                 <div className='mb-3'>
                     <label className="form-label">Description:</label>
-                    <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                    <textarea type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </div>
                 <div className='mb-3'>
                     <label className="form-label">Salary:</label>
-                    <input type="text" className="form-control" value={salary} onChange={(e) => setSalary(e.target.value)} required />
+                    <input type="number" className="form-control" value={salary} onChange={(e) => setSalary(e.target.value)} required />
                 </div>
                 <div className='mb-3'>
                     <label className="form-label">Location:</label>
-                    <textarea className='form-control' value={location} onChange={(e) => setLocation(e.target.value)} required></textarea>
-                </div>
-                <div className='mb-3'>
-                    <label className="form-label">Date Posted:</label>
-                    <input type="date" className='form-control' value={date_posted} onChange={(e) => setDatePosted(e.target.value)} required></input>
+                    <input className='form-control' value={location} onChange={(e) => setLocation(e.target.value)} required></input>
                 </div>
                 <button type='submit' className="addJob">Add Job</button>
             </form>
@@ -62,4 +73,4 @@ const UserRegistrationPage = (props) => {
     );
 };
 
-export default UserRegistrationPage;
+export default JobPostingPage;

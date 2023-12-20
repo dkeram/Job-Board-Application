@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,7 +11,6 @@ from .serializers import UsersSerializer, JobListingSerializer, ApplicationSeria
 # Create your views here
 
 class UsersListCreateView(generics.ListCreateAPIView):
-    
     queryset = Users.objects.all()
     serializer_class = UsersSerializer
 
@@ -27,11 +25,11 @@ class GetUsersDetails(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({'username': request.user.username, 'role': request.user.role})
+        return Response({'id':request.user.id, 'username': request.user.username, 'role': request.user.role})
 
 
 class JobsListingsListCreateView(generics.ListCreateAPIView):
-    
+    #permission_classes = [IsAuthenticated]
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
 
@@ -56,6 +54,7 @@ class ApplicationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
+
     def post(self, request):
 
         try:

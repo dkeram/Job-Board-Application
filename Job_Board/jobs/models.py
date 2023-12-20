@@ -25,7 +25,7 @@ class JobListing(models.Model):
     salary = models.IntegerField()
     location = models.CharField(max_length=80)
     employer = models.ForeignKey(Users, on_delete=models.CASCADE)
-    date_posted = models.DateField()
+    date_posted = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title
