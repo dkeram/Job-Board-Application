@@ -1,19 +1,12 @@
-import '../App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import NavBar from './NavBar'
 import axios from 'axios';
 import React,{useEffect,useState} from 'react';
 import JobListing from './JobListingPage';
-import AddJob from './JobPostingForm';
-import LoginPage from './LoginPage';
-import UserProfile from './UserProfilePage';
-import LogoutPage from './LogoutPage';
-import {Route, Routes} from "react-router-dom";
-import UserRegistrationPage from './UserRegistrationPage';
 
 function HomePage(){
     const [jobs, setJobs] = useState([]);
     const [message, setMessage] = useState('');
+    const [username, setUsername] = useState('');
+    const JWT_token = localStorage.getItem('access_token');
 
     useEffect(() => {
         if(localStorage.getItem('access_token')===null){
@@ -21,14 +14,15 @@ function HomePage(){
         }else{
             (async () => {
                 try{
-                    await axios.get(`http://localhost:8000/token/`, {headers: {'Content-Type':'application/json'}});
-                    setMessage("Hi");
+                    const response = await axios.get(`http://localhost:8000/get-details/`, {headers: {Authorization :`Bearer ${JWT_token}`},});
+                    setUsername(response.data.username);
+                    setMessage(`Welcome back ${username}`);
                 }catch (e) {
                     console.log('not auth');
                 }
             })
         ()};
-    },[]);
+    },[JWT_token, username]);
 
     const fetchJobs = async()=> {
         try{
@@ -47,19 +41,8 @@ function HomePage(){
     return (
     <div className="App">
         <header className="App-Header">
-        <h1>Job Board</h1>
         <div className="form-signin mt-5 text-center">
-          <h5>{message}</h5>
-        </div>
-        <NavBar />
-        <div className="container">
-            <Routes>
-                <Route path="/postjob" element={<AddJob />} />
-                <Route path="/singup" element={<UserRegistrationPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/profile" element={<UserProfile />} />
-                <Route path="/logout" element={<LogoutPage />} />
-            </Routes>
+          <h6>{message}</h6>
         </div>
         <JobListing jobs = {jobs} refreshJobs = {fetchJobs} />
         </header>

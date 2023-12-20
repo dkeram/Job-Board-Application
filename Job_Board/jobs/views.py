@@ -5,49 +5,57 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import CustomUser, JobListing, Application
-from .serializers import UserSerializer, JobListingSerializer, ApplicationSerializer
+from .models import Users, JobListing, Application
+from .serializers import UsersSerializer, JobListingSerializer, ApplicationSerializer
 
 
 # Create your views here
 
-class UserListCreateView(generics.ListCreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+class UsersListCreateView(generics.ListCreateAPIView):
+    
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializer
 
 
-class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+class UsersRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializer
+
+
+class GetUsersDetails(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({'username': request.user.username, 'role': request.user.role})
 
 
 class JobsListingsListCreateView(generics.ListCreateAPIView):
+    
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
 
-    def created_by(self, serializer):
-        serializer.save(employer=self.request.customuser)
-
 
 class JobListingsRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
 
 
 class ApplicationListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
 
 class ApplicationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
 
 class LogoutView(APIView):
-    permission_classes = (IsAuthenticated,)
-
+    permission_classes = [IsAuthenticated]
     def post(self, request):
 
         try:

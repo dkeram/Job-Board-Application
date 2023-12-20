@@ -12,7 +12,7 @@ const UserRegistrationPage = (props) => {
         e.preventDefault();
 
         try{
-            await axios.post('http://localhost:8000/user/', {
+            await axios.post(`http://localhost:8000/user/`, {
                 username : username,
                 password : password,
                 email : email,
@@ -48,8 +48,8 @@ const UserRegistrationPage = (props) => {
                     <label className="form-label">Role:</label>
                     <select className='form-select' onChange={(e) => setRole(e.target.value)} required>
                         <option>--------------------------</option>
-                        <option value="employer">Employer</option>
-                        <option value="job_seeker">Job Seeker</option>
+                        <option value="Employer">Employer</option>
+                        <option value="Job Seeker">Job Seeker</option>
                     </select>
                 </div>
                 <button type='submit' className="addUser">Create User</button>
