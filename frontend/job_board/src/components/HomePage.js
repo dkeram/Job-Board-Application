@@ -1,32 +1,24 @@
 import axios from 'axios';
 import React,{useEffect,useState} from 'react';
 import JobListing from './JobListingPage';
+import { useAuth } from './AuthContext';
 
 function HomePage(){
     const [jobs, setJobs] = useState([]);
     const [message, setMessage] = useState('');
-    const [username, setUsername] = useState('');
-    const JWT_token = localStorage.getItem('access_token');
+    const {username, isAuth} = useAuth();
 
     useEffect(() => {
-        if(localStorage.getItem('access_token')===null){
+        if(!isAuth){
             setMessage("You are not logged-in!")
         }else{
-            (async () => {
-                try{
-                    const response = await axios.get(`http://localhost:8000/get-details/`, {headers: {Authorization :`Bearer ${JWT_token}`},});
-                    setUsername(response.data.username);
-                    setMessage(`Welcome back ${username}`);
-                }catch (e) {
-                    console.log('not auth');
-                }
-            })
-        ()};
-    },[JWT_token, username]);
+            setMessage(`Welcome back ${username}`);
+            };
+    },[isAuth, username]);
 
     const fetchJobs = async()=> {
         try{
-            const response = await axios.get(`http://localhost:8000/jobs/`, {headers: {Authorization :`Bearer ${JWT_token}`},});
+            const response = await axios.get(`http://localhost:8000/jobs/`);
             setJobs(response.data);
         }catch(error){
         console.error('Error fetching jobs', error);

@@ -1,45 +1,29 @@
-import React, {useState,useEffect} from "react";
+import React, {useState} from "react";
 import axios from "axios";
+import {useAuth} from './AuthContext';
 
 const JobPostingPage = (props) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [salary, setSalary] = useState('');
-    const [employer, setEmployer] = useState('');
+    const {token, id} = useAuth();
     const [location, setLocation] = useState('');
-    const JWT_token = localStorage.getItem('access_token');
     
-    useEffect(() => {
-        if(localStorage.getItem('access_token')!==null){
-            (async () => {
-                try{
-                    const response = await axios.get(`http://localhost:8000/get-details/`, {headers: {Authorization :`Bearer ${JWT_token}`},});
-                    setEmployer(response.data.id);
-                    console.log(employer)
-                }catch (e) {
-                    console.log('not auth');
-                }
-            })
-        ()};
-    },[JWT_token, employer]);
-
-
     const handleSubmit = async(e) => {
         e.preventDefault();
-
+        
         try{
             await axios.post(`http://localhost:8000/jobs/`, {
                 title : title,
                 description : description,
                 salary : salary,
-                employer: employer,
+                employer: id,
                 location : location,
-            },{headers: {Authorization :`Bearer ${JWT_token}`},});
+            },{headers: {Authorization :`Bearer ${token}`},});
 
             setTitle('');
             setDescription('');
             setSalary('');
-            setEmployer('');
             setLocation('');
 
         }catch(error){

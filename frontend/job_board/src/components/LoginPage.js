@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, {useState} from "react";
+import {useAuth} from './AuthContext';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const {setToken} = useAuth();
 
     const submit = async e => {
         e.preventDefault();
@@ -16,7 +17,7 @@ const Login = () => {
 
         const {data} = await axios.post(`http://localhost:8000/token/`, user, {headers: {'Content-Type':'application/json'}},{withCredentials: true});
         localStorage.clear();
-        localStorage.setItem('access_token', data.access);
+        setToken(data.access)
         localStorage.setItem('refresh_token', data.refresh);
         axios.defaults.headers.common['Authorization']=`Bearer ${data['access']}`;
 

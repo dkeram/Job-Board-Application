@@ -31,16 +31,6 @@ class JobListing(models.Model):
         return self.title
 
 
-class Application(models.Model):
-    applicant = models.ForeignKey(Users, blank=True, on_delete=models.CASCADE)
-    job_listing = models.ForeignKey(JobListing, blank=True, null=True, on_delete=models.CASCADE)
-    cover_letter = models.TextField()
-    date_applied = models.DateField()
-
-    def __str__(self):
-        return self.applicant
-
-
 class Status(models.Model):
     STATUS = (
         ('Pending', 'Pending'),
@@ -48,8 +38,21 @@ class Status(models.Model):
         ('Accepted', 'Accepted'),
     )
 
-    application = models.ForeignKey(Application, blank=True, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS, default='Pending')
+
+    def __str__(self):
+        return self.status
+
+
+class Application(models.Model):
+    applicant = models.ForeignKey(Users, blank=True, on_delete=models.CASCADE)
+    job_listing = models.ForeignKey(JobListing, blank=True, null=True, on_delete=models.CASCADE)
+    cover_letter = models.TextField()
+    date_applied = models.DateField(auto_now_add=True)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.applicant.username
 
 
 class Message(models.Model):
