@@ -32,7 +32,7 @@ const ApplicationForm = (props) => {
                     <label className="form-label">Cover Letter:</label>
                     <textarea type="text" className="form-control" value={cover_letter} onChange={(e) => setCoverLetter(e.target.value)} required />
                 </div>
-                <button type='submit' className="addApplication">Apply</button>
+                <button type='submit' className="btn btn-primary">Apply</button>
             </form>
         </div>
     );

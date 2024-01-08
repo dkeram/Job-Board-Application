@@ -9,12 +9,15 @@ import ApplicationForm from "./components/ApplicationForm";
 import UserProfile from './components/UserProfilePage';
 import UserRegistrationPage from './components/UserRegistrationPage';
 import HeaderImage from './assets/images/header.png';
+import Messages from './components/Messages';
+import InboxMessages from './components/InboxMessages';
+import OutboxMessages from './components/OutboxMessages';
 
 function App() {
 
     return (
       <header>
-        <img src={HeaderImage} class="rounded mx-auto d-block" alt='Job_Board' />
+        <img src={HeaderImage} class="rounded mx-auto d-block" alt='Job_Board' id="header-image" />
         <Navigation></Navigation>
         <Routes>
           <Route path="/" element={<Home/>}/>
@@ -24,6 +27,9 @@ function App() {
           <Route path="/application-form" element={<ApplicationForm/>}/>
           <Route path="/profile" element={<UserProfile/>}/>
           <Route path="/signUp" element={<UserRegistrationPage/>}/>
+          <Route path="/messages" element={<Messages/>}/>
+          <Route path="/inbox" element={<InboxMessages/>}/>
+          <Route path="/outbox" element={<OutboxMessages/>}/>
         </Routes>
       </header>
     );

@@ -6,8 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import AuthProvider from './components/AuthContext';
 import './interceptor/axios';
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import 'bootstrap/dist/js/bootstrap.js';
+import "@popperjs/core";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

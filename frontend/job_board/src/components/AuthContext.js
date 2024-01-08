@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 
     // State to hold the authentication token
-    const [token, setToken] = useState(localStorage.getItem("access_token"));
+    const [token, setToken] = useState(localStorage.getItem('access_token'));
     const { decodedToken, isExpired } = useJwt(token);
     
 

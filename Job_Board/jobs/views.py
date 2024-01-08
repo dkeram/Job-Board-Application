@@ -4,8 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import Users, JobListing, Application
-from .serializers import MyApplicationSerializer, UsersSerializer, JobListingSerializer, ApplicationSerializer, EmployerApplicationSerializer
+from .models import Users, JobListing, Application, Message
+from .serializers import (MyApplicationSerializer, UsersSerializer, JobListingSerializer, ApplicationSerializer,
+                          EmployerApplicationSerializer, MessageSerializer, InboxMessagesSerializer, OutboxMessagesSerializer)
 
 
 # Create your views here
@@ -57,7 +58,7 @@ class ApplicationListCreateView(generics.ListCreateAPIView):
 
 
 class MyApplicationsSerializer(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = MyApplicationSerializer
 
     def get_queryset(self):
@@ -74,6 +75,42 @@ class ApplicationList(generics.ListCreateAPIView):
         job_id = self.kwargs['job_id']
         job = JobListing.objects.get(pk=job_id)
         return Application.objects.filter(job_listing=job)
+
+
+class StatusApplication(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = [IsAuthenticated]
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer
+
+
+class Messages(generics.ListCreateAPIView):
+    # permission_classes = [IsAuthenticated]
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+
+
+class MessagesDelete(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = [IsAuthenticated]
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+
+
+class InboxMessages(generics.ListAPIView):
+    serializer_class = InboxMessagesSerializer
+
+    def get_queryset(self):
+        receiver_id = self.kwargs['receiver_id']
+        receiver = Users.objects.get(pk=receiver_id)
+        return Message.objects.filter(receiver=receiver)
+
+
+class OutboxMessages(generics.ListAPIView):
+    serializer_class = OutboxMessagesSerializer
+
+    def get_queryset(self):
+        sender_id = self.kwargs['sender_id']
+        sender = Users.objects.get(pk=sender_id)
+        return Message.objects.filter(sender=sender)
 
 
 class LogoutView(APIView):

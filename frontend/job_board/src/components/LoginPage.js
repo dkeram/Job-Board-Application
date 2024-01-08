@@ -24,11 +24,11 @@ const Login = () => {
         window.location.href = '/#'
     }
     return(
-        <div className="Auth-form-container">
-          <form className="Auth-form" onSubmit={submit}>
-            <div className="Auth-form-content">
+        <div className="container mt-5">
+          <form onSubmit={submit}>
+            <div className="mt-3">
               <h3 className="Auth-form-title">Sign In</h3>
-              <div className="form-group mt-3">
+              <div className="mt-3">
                 <label>Username</label>
                 <input className="form-control mt-1" 
                   placeholder="Enter Username" 

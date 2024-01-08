@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Users, Application, JobListing, Status, Message
+from drf_writable_nested import WritableNestedModelSerializer
 
 
 class UsersSerializer(serializers.ModelSerializer):
@@ -25,7 +26,9 @@ class StatusSerializer(serializers.ModelSerializer):
         fields = ['id', 'status']
 
 
-class ApplicationSerializer(serializers.ModelSerializer):
+class ApplicationSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
+    status = StatusSerializer(read_only=False)
+
     class Meta:
         model = Application
         fields = ['id', 'applicant', 'job_listing', 'cover_letter', 'date_applied', 'status']
@@ -41,7 +44,7 @@ class MyApplicationSerializer(serializers.ModelSerializer):
         fields = ['id', 'applicant', 'job_listing', 'cover_letter', 'date_applied', 'status']
 
         def get_name(self, obj):
-            return obj.user.username, obj.job_listing.title, obj.status.status
+            return obj.user.username, obj.job_listing.title, obj.status.id
 
 
 class EmployerApplicationSerializer(serializers.ModelSerializer):
@@ -53,10 +56,26 @@ class EmployerApplicationSerializer(serializers.ModelSerializer):
         fields = ['id', 'applicant', 'job_listing', 'cover_letter', 'date_applied', 'status']
 
         def get_name(self, obj):
-            return obj.user.username, obj.status.status
+            return obj.user.username, obj.status.status, odj.status.status
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['id', 'sender', 'receiver', 'content', 'timestamp']
+
+
+class InboxMessagesSerializer(serializers.ModelSerializer):
+    sender = UsersSerializer(read_only=True)
+
+    class Meta:
+        model = Message
+        fields = ['id', 'sender', 'receiver', 'content', 'timestamp']
+
+
+class OutboxMessagesSerializer(serializers.ModelSerializer):
+    receiver = UsersSerializer(read_only=True)
+
     class Meta:
         model = Message
         fields = ['id', 'sender', 'receiver', 'content', 'timestamp']

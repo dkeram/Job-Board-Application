@@ -37,7 +37,19 @@
   }
 }
 
-
 #navbar{
   display: flex;
+  color:white;
+}
+
+
+h2{
+  padding-top: 20px;
+  text-align: center;
+}
+
+#header-image{
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
 }
