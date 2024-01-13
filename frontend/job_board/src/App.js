@@ -12,6 +12,7 @@ import HeaderImage from './assets/images/header.png';
 import Messages from './components/Messages';
 import InboxMessages from './components/InboxMessages';
 import OutboxMessages from './components/OutboxMessages';
+import ReplyToMessage from './components/ReplyToMessage';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/messages" element={<Messages/>}/>
           <Route path="/inbox" element={<InboxMessages/>}/>
           <Route path="/outbox" element={<OutboxMessages/>}/>
+          <Route path="/reply" element={<ReplyToMessage/>}/>
         </Routes>
       </header>
     );

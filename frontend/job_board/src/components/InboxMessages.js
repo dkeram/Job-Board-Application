@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
+import {Link} from 'react-router-dom';
 import axios from "axios";
 import {useAuth} from './AuthContext';
 import Messages from './Messages';
+import ReplyToMessage from './ReplyToMessage';
 
 
 function InboxMessages(props){
@@ -38,7 +40,7 @@ function InboxMessages(props){
 
     useEffect(()=>{
         fetchMessages();
-    }, []);
+    },[]);
     
   
     
@@ -66,9 +68,9 @@ function InboxMessages(props){
                                                 <li>
                                                     <strong>Message:</strong>
                                                     <p dangerouslySetInnerHTML={{ __html: message.content.replace(/\n/g, '<br />') }}></p>
-                                                    <p>Received at:</p>
+                                                    <strong>Received at:</strong>
                                                     <p dangerouslySetInnerHTML={{ __html: message.timestamp.replace(/\n/g, '<br />') }}></p>
-                                                    <Messages receiver = {message.sender} />    
+                                                    <Link to="/reply" state={{receiver:message.sender}}><button type="submit" class="btn btn-primary">Reply</button></Link>
                                                 </li>
                                             </ul>
                                         </div>

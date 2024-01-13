@@ -27,9 +27,9 @@ const Login = () => {
         <div className="container mt-5">
           <form onSubmit={submit}>
             <div className="mt-3">
-              <h3 className="Auth-form-title">Sign In</h3>
+              <h2 className="Auth-form-title">Sign In</h2>
               <div className="mt-3">
-                <label>Username</label>
+                <label>Username:</label>
                 <input className="form-control mt-1" 
                   placeholder="Enter Username" 
                   name='username'  
@@ -38,7 +38,7 @@ const Login = () => {
                   onChange={e => setUsername(e.target.value)}/>
               </div>
               <div className="form-group mt-3">
-                <label>Password</label>
+                <label>Password:</label>
                 <input name='password' 
                   type="password"     
                   className="form-control mt-1"

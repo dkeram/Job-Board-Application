@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {useAuth} from './AuthContext';
+import { useLocation } from "react-router-dom";
 
 const Reply = (props) => {
     const {token, id} = useAuth();
-    const receiver = props.location?.state?.receiver;
+    const {state} = useLocation();
     const [content, setContent] = useState('');
 
     const handleSubmit = async(e) => {
@@ -13,10 +14,10 @@ const Reply = (props) => {
         try{
             await axios.post(`http://localhost:8000/message/`, {
                 sender : id,
-                receiver : receiver,
+                receiver : state.receiver,
                 content : content,
             },{headers: {Authorization :`Bearer ${token}`},});
-            console.log(id, receiver, content);
+            console.log(id, state.receiver, content);
             setContent('');
         }catch(error){
             console.error('Error Senting the message: ',error);
@@ -28,7 +29,7 @@ const Reply = (props) => {
             <h2>Send a Reply</h2>
             <form onSubmit={handleSubmit}>
                 <div class="mb-3">
-                    <label for="message"  class="form-label">Message:</label>
+                    <label for="message"  class="form-label"><strong>Message:</strong></label>
                     <textarea id="message" class="form-control"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
