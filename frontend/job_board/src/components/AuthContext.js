@@ -1,18 +1,14 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useJwt } from "react-jwt";
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { useJwt } from 'react-jwt';
 
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-
-    // State to hold the authentication token
     const [token, setToken] = useState(localStorage.getItem('access_token'));
     const { decodedToken, isExpired } = useJwt(token);
     
 
-
-    // Memoized value of the authentication context
     const contextValue = useMemo(
         () => {
             const isAuth = !isExpired;
@@ -38,7 +34,6 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('access_token', token)
     },[token]);
 
-    // Provide the authentication context to the children components
     return (
         <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
     );

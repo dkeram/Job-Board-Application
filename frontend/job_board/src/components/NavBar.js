@@ -1,9 +1,8 @@
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import React from 'react';
 import { useAuth } from "./AuthContext";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 
 function NavBar(){
     const {role, isAuth} = useAuth();

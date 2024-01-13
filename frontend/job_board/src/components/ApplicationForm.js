@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import axios from "axios";
+import React, {useState} from 'react';
+import axios from 'axios';
 import {useAuth} from './AuthContext';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const ApplicationForm = () => {
     const {token, id} = useAuth();
