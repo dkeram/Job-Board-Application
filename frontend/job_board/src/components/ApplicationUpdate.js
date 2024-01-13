@@ -20,8 +20,6 @@ const StautsApplicationForm = (props) => {
                 cover_letter : cover_letter,
                 status : {'id':status},
             },{headers: {Authorization :`Bearer ${token}`},});
-
-            console.log(status);
             
             setStatus('');
         }catch(error){
@@ -35,9 +33,9 @@ const StautsApplicationForm = (props) => {
                 <div className='mb-3'>
                     <label className="form-label">Role:</label>
                     <select className='form-select' onChange={(e) => setStatus(e.target.value)} required>
-                        <option value="1">Pending</option>
-                        <option value="2">Rejected</option>
-                        <option value="3">Accepted</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Pending">Rejected</option>
+                        <option value="Accepted">Accepted</option>
                     </select>
                 </div>
                 <button type="submit" className="btn btn-primary">Update Applications</button>
