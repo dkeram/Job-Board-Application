@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 import { useAuth } from "./AuthContext";
-import ApplicationForm from "./ApplicationForm";
 
 const JobList = (props) =>{
     const [selectedJob, setSelectedJob] = useState(null);

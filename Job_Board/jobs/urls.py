@@ -6,7 +6,6 @@ urlpatterns = [
     path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('user/', views.UsersListCreateView.as_view(), name='user-list-create'),
     path('user/<int:pk>/', views.UsersRetrieveUpdateDestroyView.as_view(), name='user-detail'),
-    path('get-details/', views.GetUsersDetails.as_view(), name='get-user-details'),
     path('jobs/', views.JobsListingsListCreateView.as_view(), name='jobs-list-create'),
     path('jobs/<int:pk>', views.JobListingsRetrieveUpdateDestroyView.as_view(), name='job-delete'),
     path('my_jobs/<int:employer_id>', views.MyJobs.as_view(), name='profile-jobs'),

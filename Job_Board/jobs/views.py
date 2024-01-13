@@ -22,27 +22,19 @@ class UsersRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UsersSerializer
 
 
-class GetUsersDetails(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        return Response({'id': request.user.id, 'username': request.user.username, 'role': request.user.role})
-
-
 class JobsListingsListCreateView(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
 
 
 class JobListingsRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
 
 
 class MyJobs(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = JobListingSerializer
 
     def get_queryset(self):
@@ -52,13 +44,13 @@ class MyJobs(generics.ListAPIView):
 
 
 class ApplicationListCreateView(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
 
 class MyApplicationsSerializer(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = MyApplicationSerializer
 
     def get_queryset(self):
@@ -68,7 +60,7 @@ class MyApplicationsSerializer(generics.ListAPIView):
 
 
 class ApplicationList(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = EmployerApplicationSerializer
 
     def get_queryset(self):
@@ -78,19 +70,19 @@ class ApplicationList(generics.ListCreateAPIView):
 
 
 class StatusApplication(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
 
 class Messages(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 
 
 class MessagesDelete(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 
