@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {useAuth} from './AuthContext';
+import { useLocation } from "react-router-dom";
 
-const ApplicationForm = (props) => {
+const ApplicationForm = () => {
     const {token, id} = useAuth();
-    const job_listing = props.job_listing;
+    const {state} = useLocation();
     const [cover_letter, setCoverLetter] = useState('');
  
     const handleSubmit = async(e) => {
@@ -13,9 +14,9 @@ const ApplicationForm = (props) => {
         try{
             await axios.post(`http://localhost:8000/application/`, {
                 applicant : id,
-                job_listing : job_listing,
+                job_listing : state.job,
                 cover_letter : cover_letter,
-                status : 1,
+                status:{status:'Pending'},
             },{headers: {Authorization :`Bearer ${token}`},});
             
             setCoverLetter('');

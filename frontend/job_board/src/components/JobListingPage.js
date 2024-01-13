@@ -5,7 +5,7 @@ import ApplicationForm from "./ApplicationForm";
 
 const JobList = (props) =>{
     const [selectedJob, setSelectedJob] = useState(null);
-    const {isAuth} = useAuth();
+    const {role} = useAuth();
 
     const handleJobClick = (jobId) =>{
         if(selectedJob === jobId){
@@ -37,7 +37,10 @@ const JobList = (props) =>{
                                 <p dangerouslySetInnerHTML={{ __html: job.location.replace(/\n/g, '<br />') }}></p>
                                 <strong>Date Posted:</strong>
                                 <p dangerouslySetInnerHTML={{ __html: job.date_posted.replace(/\n/g, '<br />') }}></p>
-                                <ApplicationForm job_listing = {job.id} />
+                                {role === "Job Seeker" ? 
+                                 <Link to="/application-form" state={{job:job.id}}><button class="btn btn-primary">Apply</button></Link>
+                                : null
+                                }
                             </div>
                         )}
                     </li>
