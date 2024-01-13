@@ -19,7 +19,7 @@ const Logout = () => {
 
     return(
         <div>
-            <h6>See you around!</h6>
+            <h2>See you around!</h2>
         </div>
     );
 };

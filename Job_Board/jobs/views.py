@@ -26,6 +26,13 @@ class JobsListingsListCreateView(generics.ListCreateAPIView):
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
 
+    def get_queryset(self):
+        qs = JobListing.objects.all()
+        title = self.request.query_params.get('title')
+        if title is not None:
+            qs = qs.filter(title__icontains=title)
+        return qs
+
 
 class JobListingsRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
