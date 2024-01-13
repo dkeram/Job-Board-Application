@@ -17,13 +17,11 @@ function NavBar(){
                     <li class="nav-item">{isAuth ? null:<Link class="nav-link" to="/login">Login</Link>}</li>
                     <li class="nav-item">{isAuth && role === 'Employer' ? <Link class="nav-link" to="/add-a-job">Post a Job</Link>:null}</li>
                     <li class="nav-item">{isAuth ?<Link class="nav-link" to="/profile">Profile</Link>:null}</li>
-                    <li class="nav-item dropdown">{isAuth ?
+                    <li class="nav-item">{isAuth ?
                         <>
-                        <Navbar.Toggle aria-controls="navbar-dark-example" />
-                        <Navbar.Collapse class="collapse navbar-collapse" id="navbar-dark-example">
-                        <Nav>
+                        <Nav bg="dark" data-bs-theme="dark">
                             <NavDropdown
-                            id="nav-dropdown-dark-example"
+                            id="basic-nav-dropdown"
                             title="Messages"
                             menuVariant="dark"
                             >
@@ -32,7 +30,6 @@ function NavBar(){
                             <NavDropdown.Item><Link class="nav-link" to="/outbox">Outbox</Link></NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                        </Navbar.Collapse>
                         </>
                         :null}
                     </li>
