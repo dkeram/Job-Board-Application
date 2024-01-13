@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from 'react-router-dom';
 import axios from "axios";
 import {useAuth} from './AuthContext';
 
@@ -44,8 +45,8 @@ function OutboxMessages(props){
     
     return(
             <div className="container mt-5">
-                <h2>My Inbox</h2>
-                {selectedMessage === 0 ? 
+                <h2>My Outbox</h2>
+                {messages.length  === 0 ? 
                     <div>
                         <p>No messages yet!</p>
                     </div>:
@@ -75,6 +76,10 @@ function OutboxMessages(props){
                                 </li>
                             )}
                         </ol>}
+                        <br></br>
+                        <div>
+                            <Link to="/"><button class="btn btn-primary">Back</button></Link>
+                        </div>
                 </div>
     );
 };

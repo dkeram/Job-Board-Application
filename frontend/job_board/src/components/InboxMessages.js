@@ -2,8 +2,6 @@ import React, {useState, useEffect} from "react";
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import {useAuth} from './AuthContext';
-import Messages from './Messages';
-import ReplyToMessage from './ReplyToMessage';
 
 
 function InboxMessages(props){
@@ -47,7 +45,7 @@ function InboxMessages(props){
     return(
             <div className="container mt-5">
                 <h2>My Inbox</h2>
-                {selectedMessage === 0 ? 
+                {messages.length === 0 ? 
                     <div>
                         <p>No messages yet!</p>
                     </div>:
@@ -73,11 +71,16 @@ function InboxMessages(props){
                                                     <Link to="/reply" state={{receiver:message.sender}}><button type="submit" class="btn btn-primary">Reply</button></Link>
                                                 </li>
                                             </ul>
+                                            
                                         </div>
                                     )}
                                 </li>
                             )}
                         </ol>}
+                        <br></br>
+                        <div>
+                            <Link to="/"><button class="btn btn-primary">Back</button></Link>
+                        </div>
                 </div>
     );
 };

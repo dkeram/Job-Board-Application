@@ -17,7 +17,6 @@ const Reply = (props) => {
                 receiver : state.receiver,
                 content : content,
             },{headers: {Authorization :`Bearer ${token}`},});
-            console.log(id, state.receiver, content);
             setContent('');
         }catch(error){
             console.error('Error Senting the message: ',error);
