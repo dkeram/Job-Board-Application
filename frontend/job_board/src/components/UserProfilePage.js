@@ -5,7 +5,7 @@ import {useAuth} from './AuthContext';
 
 
 function UserProfile(props){
-    const {isAuth, token, id, role} = useAuth();
+    const {token, id, role} = useAuth();
     const [jobs, setJobs] = useState([]);
     const [applications, setApplications] = useState([]);
     const [selectedJob, setSelectedJob] = useState();
@@ -82,7 +82,7 @@ function UserProfile(props){
                                                             <p dangerouslySetInnerHTML={{ __html: application.cover_letter.replace(/\n/g, '<br />') }}></p>
                                                             <strong>Date Posted:</strong>
                                                             <p dangerouslySetInnerHTML={{ __html: job.date_posted.replace(/\n/g, '<br />') }}></p>
-                                                            <ApplicationUpdate job_listing = {job.id} applicant = {id} application_id = {application.id} application_cl = {application.cover_letter}/>
+                                                            <ApplicationUpdate job_listing = {job.id} applicant = {application.applicant.id} application_id = {application.id} application_cl = {application.cover_letter}/>
                                                         </li>
                                                     </ul>
                                                 </div>

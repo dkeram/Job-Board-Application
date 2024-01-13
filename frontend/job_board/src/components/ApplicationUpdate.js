@@ -18,7 +18,7 @@ const StautsApplicationForm = (props) => {
                 applicant : applicant,
                 job_listing : job_listing,
                 cover_letter : cover_letter,
-                status : {'id':status},
+                status : {'status':status},
             },{headers: {Authorization :`Bearer ${token}`},});
             
             setStatus('');

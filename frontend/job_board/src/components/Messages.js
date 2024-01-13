@@ -35,8 +35,6 @@ const MessageForm = (props) => {
 
             setReceiver([]);
             setContent('');
-
-            alert('Your Message Sent Succefully!')
         }catch(error){
             console.error('Error Senting the message: ',error);
         }
