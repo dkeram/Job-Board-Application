@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from "react";
-import ApplicationUpdate from "./ApplicationUpdate";
-import axios from "axios";
+import React, {useState, useEffect} from 'react';
+import ApplicationUpdate from './ApplicationUpdate';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 import {useAuth} from './AuthContext';
 
 
@@ -52,10 +53,9 @@ function UserProfile(props){
         fetchApplications();
     }, []);
     
-  
     
     return(
-        <div>
+        <div className="container-sm">
             {role=== 'Employer' ?
                 <div>
                     <h2>My Jobs</h2>
@@ -93,20 +93,37 @@ function UserProfile(props){
                         </ol>
                 </div>
                 :
-                <div>
+                <div className="container-sm">
                     <h2>My Applications</h2>
                         <ul className="list-group">
                         {applications.map((application)=>
                             <li key= {application.id} className='list-group-item'>
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <b>{application.job_listing.title}</b>
-                                    <b>{application.status.status}</b>
+                                    <span>
+                                    <strong>Job Title:</strong>
+                                    <p>{application.job_listing.title}</p>
+                                    </span>
+                                    <span>
+                                    <strong>Status:</strong>
+                                        {application.status.status === "Accepted" ? <p class="alert alert-success" role="alert">{application.status.status}</p>
+                                        :<>
+                                            {application.status.status === "Rejected" ? <p class="alert alert-danger" role="alert">{application.status.status}</p>
+                                            :
+                                            <p class="alert alert-info" role="alert">{application.status.status}</p>
+                                            }
+                                        </>
+                                        }
+                                    </span>
                                 </div>
                             </li>
                             )}
                         </ul>
                 </div>
             }
+            <br></br>
+                        <div>
+                            <Link to="/"><button class="btn btn-primary">Back</button></Link>
+                        </div>
         </div>
     );
 };
